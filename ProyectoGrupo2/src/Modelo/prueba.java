@@ -1,5 +1,5 @@
 package Modelo;
 
-public class prueva {
+public class prueba {
 
 }

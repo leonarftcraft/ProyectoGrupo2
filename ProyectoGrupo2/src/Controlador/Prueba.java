@@ -1,6 +1,6 @@
 package Controlador;
 
-public class Prueva {
+public class Prueba {
 /*
  * craft
  */
