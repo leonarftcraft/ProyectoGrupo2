@@ -37,6 +37,26 @@ public class validarTablas {
 			return val;
 		}
 		
-		
+		public JTable Validar2() {
+			//evita que las celdas sean editables
+			JTable val = new javax.swing.JTable() {
+
+				public boolean isCellEditable(int a, int b) {
+					return false;
+				}
+			};
+			//el focus se hace por fila enves de columna
+			val.setFocusable(false);
+			
+			//evita que se pueda modificar el tamaño de las columnas
+			val.getTableHeader().setReorderingAllowed(false);
+			val.getTableHeader().setResizingAllowed(false);
+			
+			//solo se puede selecionar una fila a la ves
+			val.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			
+			//debuelve el jtable que se le pasaron todos los atributos anteriores
+			return val;
+		}
 		
 }

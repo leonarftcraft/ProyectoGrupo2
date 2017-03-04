@@ -6,18 +6,27 @@ import java.awt.event.MouseListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 import Animacion.Animacion;
+import Modelo.Personal;
 import Vista.VistaGestionPersonal;
 import Vista.VistaPortada;
+import Vista.panelListarPersonal;
+import Vista.panelRegistrarPersonal;
 
 public class ControladorVistaPortada implements MouseListener{
 	private VistaPortada visPor;
 	private VistaGestionPersonal visGesPer;
+	private panelListarPersonal panLisPers;
+	private panelRegistrarPersonal panRegPers;
 	private String est;
 
-	public ControladorVistaPortada(VistaPortada visPor, VistaGestionPersonal visGesPer, String est) {
+	public ControladorVistaPortada(VistaPortada visPor, VistaGestionPersonal visGesPer, panelListarPersonal panLisPers, 
+			panelRegistrarPersonal panRegPers, String est) {
 		this.est = est;
+		this.panLisPers = panLisPers;
+		this.panRegPers = panRegPers;
 		this.visPor = visPor;
 		this.visGesPer = visGesPer;
 	}
@@ -202,8 +211,21 @@ public class ControladorVistaPortada implements MouseListener{
 		
 		if(est.equals("menGestiPers")){
 			
-			visGesPer.setVisible(true);
 			
+			Personal pers = new Personal();
+			DefaultTableModel modelo=(DefaultTableModel) panLisPers.table.getModel();
+			int filasTabla = panLisPers.table.getRowCount();
+
+			String Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
+					+ "inner join carg on  pers.fk_carg=carg.id where stat = 'Activo'";
+			
+			pers.Listar(modelo, Sql, filasTabla);
+			panLisPers.setVisible(true);
+			panLisPers.comCarg.setSelectedIndex(0);
+			panLisPers.textBusca.setText("");
+			panLisPers.comStatu.setSelectedIndex(0);
+			panRegPers.setVisible(false);
+			visGesPer.setVisible(true);
 		}
 		
 	}

@@ -64,10 +64,10 @@ public class VistaPortada extends JFrame {
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		panel.setLayout(null);
 		
-		panelEscudo.setBounds(36, 97, 187, 188);
+		panelEscudo.setBounds(785, 93, 214, 188);
 		panel.add(panelEscudo);
 		panelMenu = new JPanel();
-		panelMenu.setBounds(0, 166, 1024, 48);
+		panelMenu.setBounds(0, 166, pantalla.width, 48);
 		panelMenu.setBackground(Color.CYAN);
 		panel.add(panelMenu);
 		panelMenu.setLayout(null);
@@ -79,25 +79,25 @@ public class VistaPortada extends JFrame {
 		MenuFondo.setIcon(icono);
 		
 		menGestiPers = new JLabel("New label");
-		menGestiPers.setBounds(225, 0, 182, 48);
+		menGestiPers.setBounds(10, 0, 182, 48);
 		ImageIcon fot2 = new ImageIcon(VistaPortada.class.getResource("/VistaPortada/menuGesPersonal-1.png"));		
 		Icon icono2 = new ImageIcon(fot2.getImage().getScaledInstance(menGestiPers.getWidth(), menGestiPers.getHeight(), Image.SCALE_DEFAULT));		
 		menGestiPers.setIcon(icono2);
 		
 		menGestAsis = new JLabel("New label");
-		menGestAsis.setBounds(413, 0, 182, 48);
+		menGestAsis.setBounds(198, 0, 182, 48);
 		ImageIcon fot3 = new ImageIcon(VistaPortada.class.getResource("/VistaPortada/menuGestAsistencia-1.png"));		
 		Icon icono3 = new ImageIcon(fot3.getImage().getScaledInstance(menGestAsis.getWidth(), menGestAsis.getHeight(), Image.SCALE_DEFAULT));		
 		menGestAsis.setIcon(icono3);
 		
 		menRegiAsis = new JLabel("New label");
-		menRegiAsis.setBounds(602, 0, 182, 48);
+		menRegiAsis.setBounds(387, 0, 182, 48);
 		ImageIcon fot4 = new ImageIcon(VistaPortada.class.getResource("/VistaPortada/menuRegisAsitencia-1.png"));		
 		Icon icono4 = new ImageIcon(fot4.getImage().getScaledInstance(menRegiAsis.getWidth(), menRegiAsis.getHeight(), Image.SCALE_DEFAULT));		
 		menRegiAsis.setIcon(icono4);
 		
 		menOpcioSiste = new JLabel("New label");
-		menOpcioSiste.setBounds(790, 0, 182, 48);
+		menOpcioSiste.setBounds(576, 0, 182, 48);
 		ImageIcon fot5 = new ImageIcon(VistaPortada.class.getResource("/VistaPortada/menuOpcioSistema-1.png"));		
 		Icon icono5 = new ImageIcon(fot5.getImage().getScaledInstance(menOpcioSiste.getWidth(), menOpcioSiste.getHeight(), Image.SCALE_DEFAULT));		
 		menOpcioSiste.setIcon(icono5);
@@ -111,12 +111,23 @@ public class VistaPortada extends JFrame {
 		panelMenu.add(menGestiPers);
 		panelMenu.add(MenuFondo);
 		
+		
 		panelMenbrete = new JPanel();
-		panelMenbrete.setBounds(0, 0, 1024, 166);
+		panelMenbrete.setBounds(0, 0, pantalla.width, 166);
 		panel.add(panelMenbrete);
 		panelMenbrete.setBackground(Color.BLACK);
-		menDes.setBounds(705, -154, 270, 146);
-		//menDes.setBounds(663, 158, 270, 146);
+		panelMenbrete.setLayout(null);
+		
+		lblMenbrete = new JLabel("New label");
+		lblMenbrete.setBounds(0, 0, pantalla.width, 166);
+		ImageIcon nb = new ImageIcon(VistaPortada.class.getResource("/VistaPortada/Menbrete.png"));
+		Icon enb = new ImageIcon(nb.getImage().getScaledInstance(lblMenbrete.getWidth(), lblMenbrete.getHeight(), Image.SCALE_DEFAULT));
+		lblMenbrete.setIcon(enb);
+	
+		panelMenbrete.add(lblMenbrete);
+		
+		menDes.setBounds(492, -158, 270, 146);
+
 		panel.add(menDes);
 		menDes.setLayout(null);
 		
@@ -149,9 +160,11 @@ public class VistaPortada extends JFrame {
                                                                                                                            
                        panelMenbrete.setSize(pantalla.width, panelMenbrete.getSize().height);
                        panelMenu.setSize(pantalla.width, panelMenu.getSize().height);
-                       MenuFondo.setSize(pantalla.width, MenuFondo.getSize().height);  
+                       MenuFondo.setSize(panelMenu.getWidth(), MenuFondo.getSize().height);  
                        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(MenuFondo.getWidth(), MenuFondo.getHeight(), Image.SCALE_DEFAULT));
                		   MenuFondo.setIcon(icono);
+               		  
+               		
 			}
 		});
 		
@@ -187,5 +200,6 @@ public class VistaPortada extends JFrame {
 			super.paintComponent(g);
 			g2.setComposite(old);
 			}
-	};;
+	};
+	private JLabel lblMenbrete;;
 }

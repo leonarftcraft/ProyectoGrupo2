@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -18,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Dialog.ModalityType;
+import java.awt.Dialog.ModalExclusionType;
 
 public class VistaGestionPersonal extends JDialog {
 
@@ -29,11 +31,13 @@ public class VistaGestionPersonal extends JDialog {
 	 * Create the dialog.
 	 */
 	public VistaGestionPersonal() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//codigo que no permite el acceso a otras ventanas mientras este en ejecucion esta
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		
 		setBounds(100, 100, 914, 510);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         //para obtener las dimensiones de la pantalla
         Dimension dimen = getSize();
@@ -62,7 +66,7 @@ public class VistaGestionPersonal extends JDialog {
 		
 		menListar = new JLabel("New label");
 		menListar.setBounds(230, 0, 214, 46);
-		ImageIcon fot11 = new ImageIcon(VistaPortada.class.getResource("/VistaGestionPersonal/Listar-1.png"));
+		ImageIcon fot11 = new ImageIcon(VistaPortada.class.getResource("/VistaGestionPersonal/Listar-2.png"));
 		Icon icono11 = new ImageIcon(fot11.getImage().getScaledInstance(menListar.getWidth(), menListar.getHeight(), Image.SCALE_DEFAULT));
 		menListar.setIcon(icono11);
 		panel.add(menListar);
