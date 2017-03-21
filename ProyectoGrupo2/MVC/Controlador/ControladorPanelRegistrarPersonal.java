@@ -1,10 +1,16 @@
 package Controlador;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -12,26 +18,38 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+
+import Modelo.Asistencia;
 import Modelo.CargaHoraria;
+import Modelo.ClaseConection;
+import Modelo.JornadaLaboral;
 import Modelo.Personal;
+import Vista.VistaCargaHorario;
 import Vista.VistaGestionPersonal;
 import Vista.VistaPortada;
+import Vista.VistaRegistrarCalendarioAcademico;
 import Vista.panelListarPersonal;
 import Vista.panelRegistrarPersonal;
 
-public class ControladorPanelRegistrarPersonal implements MouseListener, KeyListener{
+public class ControladorPanelRegistrarPersonal implements MouseListener, KeyListener, ActionListener, FocusListener{
 	private VistaGestionPersonal visGesPer;
 	private panelRegistrarPersonal panRegPers;
 	private panelListarPersonal panLisPers;
+	private VistaCargaHorario visCarHor;
+	private VistaRegistrarCalendarioAcademico regCaleAca;
 	private String ets;
 	
-	public ControladorPanelRegistrarPersonal(VistaGestionPersonal visGesPer, panelRegistrarPersonal panRegPers, 
+	
+	public ControladorPanelRegistrarPersonal(VistaRegistrarCalendarioAcademico regCaleAca, VistaCargaHorario visCarHor, VistaGestionPersonal visGesPer, panelRegistrarPersonal panRegPers, 
 			panelListarPersonal panLisPers, String ets) {
 	
 		this.ets = ets;
+		this.visCarHor=visCarHor;
 		this.panLisPers=panLisPers;
 		this.visGesPer = visGesPer;
 		this.panRegPers = panRegPers;
+		this.regCaleAca=regCaleAca;
 	}
 	
 	public void mouseEntered(MouseEvent e) {
@@ -74,56 +92,75 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		if(ets.equals("btmGuardar")){
-			DefaultTableModel horario=(DefaultTableModel) panRegPers.table.getModel();
-	
-			if(panRegPers.table.getSelectedRow()!=-1 ){
-				
-				if(panRegPers.table.getSelectedColumn()!=0){
-				panRegPers.table.clearSelection();				
-				panRegPers.table.getCellEditor().stopCellEditing();
-				
-				}
-				
-			}
-	
+		if(ets.equals("btmGuardar")){		
+
 			
-			int cont=0;
-			if(!panRegPers.textApellido.equals("")&&!panRegPers.textNombre.equals("")&&!panRegPers.textCedula.equals("")
-					&&!panRegPers.textTelef.equals("")&&panRegPers.comCargo.getSelectedIndex()!=0){
+		if(!panRegPers.textApellido.equals("")&&!panRegPers.textNombre.equals("")&&!panRegPers.textCedula.equals("")
+					&&!panRegPers.textTelef.equals("")&&panRegPers.comCargo.getSelectedIndex()!=0 && panRegPers.comSexo.getSelectedIndex()!=0){
+				
+					DefaultTableModel horario=(DefaultTableModel) visCarHor.table.getModel();
 				
 				
-				for (int a = 0; a <= 10; a++) {
-
-					for (int b = 1; b <= 5; b++) {
-						
-
-						if ((Boolean)horario.getValueAt(a, b)) {
-							cont++;
-
-						}
-
-					}
-
-				}
 				
-				if(cont>=5){
 					CargaHoraria carRe = new CargaHoraria(panRegPers);
 					Personal pers = new Personal(panRegPers);
-					
-					pers.Registrar();
-					carRe.Registrar(horario);
-					
-					JOptionPane.showMessageDialog(null,	"Datos almacenados exitosamente",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
-					pers.Limpiar();
-					carRe.Limpiar(horario);
+					JornadaLaboral jona = new JornadaLaboral(panRegPers);
+					Asistencia asi = new Asistencia(regCaleAca, null);
 					
 				
-				
-				}else{
-					JOptionPane.showMessageDialog(null, "Debe introducir por lo minimo 5 horas en la carga horaria", "Mensaje del sistema", JOptionPane.WARNING_MESSAGE); 
+					
+					int con=0;
+					for(int a=0; a<=12; a++){
+						
+						
+						for(int b=1; b<=5; b++){
+							
+							
+							if((Boolean)horario.getValueAt(a, b)){
+								
+								con++;								
+							}
+							
+							
+						}
+						
+					}
+					
+					
+					
+						if(panRegPers.comCargo.getSelectedIndex()==1){
+							if(con>=6){
+								
+								pers.Registrar();
+								carRe.Registrar(horario);
+								asi.setRegistroIndivi(panRegPers.textCedula.getText());
+								carRe.Limpiar(horario);
+								pers.Limpiar();
+								JOptionPane.showMessageDialog(null,	"Datos almacenados exitosamente",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
 
-				}
+							}else{
+								JOptionPane.showMessageDialog(null,	"Introduzca carga horaria",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
+								
+							}
+							
+						}else{
+							
+							if(panRegPers.comJornaLabo.getSelectedIndex()!=0){
+								pers.Registrar();
+								jona.Registrar();
+								asi.setRegistroIndivi(panRegPers.textCedula.getText());
+								jona.Limpiar();
+								pers.Limpiar();
+								JOptionPane.showMessageDialog(null,	"Datos almacenados exitosamente",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
+
+							}else{
+								JOptionPane.showMessageDialog(null,	"Seleccione jornada laboral",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
+
+							}
+							
+						}		
+				
+				
 			}else{
 				JOptionPane.showMessageDialog(null, "Los campos que tienen asterisco rojo son obligatorios", "Mensaje del sistema", JOptionPane.WARNING_MESSAGE); 
 			}
@@ -139,52 +176,52 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 		}
 		
 		if(ets.equals("btmActualizar")){
-			DefaultTableModel horario=(DefaultTableModel) panRegPers.table.getModel();
+			DefaultTableModel horario=(DefaultTableModel) visCarHor.table.getModel();
 
-			if(panRegPers.table.getSelectedRow()!=-1 ){
+			if(visCarHor.table.getSelectedRow()!=-1 ){
 				
-				if(panRegPers.table.getSelectedColumn()!=0){
-				panRegPers.table.clearSelection();				
-				panRegPers.table.getCellEditor().stopCellEditing();
+				if(visCarHor.table.getSelectedColumn()!=0){
+					visCarHor.table.clearSelection();				
+					visCarHor.table.getCellEditor().stopCellEditing();
 				
 				}
 				
 			}
-			int cont=0;
+			
 			if(!panRegPers.textApellido.equals("")&&!panRegPers.textNombre.equals("")&&!panRegPers.textCedula.equals("")
 					&&!panRegPers.textTelef.equals("")&&panRegPers.comCargo.getSelectedIndex()!=0){
 				
 				
-				for (int a = 0; a <= 10; a++) {
-
-					for (int b = 1; b <= 5; b++) {
-						
-
-						if ((Boolean)horario.getValueAt(a, b)) {
-							cont++;
-
-						}
-
-					}
-
-				}
+			
 				
-				if(cont>=5){
+		
 					CargaHoraria carRe = new CargaHoraria(panRegPers);
 					Personal pers = new Personal(panRegPers);
+					JornadaLaboral jorN = new JornadaLaboral(panRegPers);
 					
 					DefaultTableModel list=(DefaultTableModel) panLisPers.table.getModel();
 					String ident = (String)list.getValueAt(panLisPers.table.getSelectedRow(), 1);
 					
 					
-					pers.Modificar(ident);;
-					carRe.Modificar(horario);
+					pers.Modificar(ident);
+					
+					if(panRegPers.comCargo.getSelectedIndex()==1){
+						if(	panRegPers.btCar==true){
+							carRe.Modificar(horario);
+						}
+						
+					}else{
+						jorN.Modificar(ident);		
+					}
+					
 					
 					int filasTabla = panLisPers.table.getRowCount();
 
-					String Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-							+ "inner join carg on  pers.fk_carg=carg.id";
-					System.out.println("dkfjsd");
+					String Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+							+ "count(cargHora.fk_pers) as e "
+							+ "from cargHora INNER JOIN pers ON cargHora.fk_pers=pers.id"
+							+ " where pers.stat = 'Activo' and pers.fk_tipoPers='1' group by fk_pers";
+				
 					pers.Listar(list, Sql, filasTabla);
 					JOptionPane.showMessageDialog(null,	"Datos almacenados exitosamente",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
 					panLisPers.comCarg.setSelectedIndex(0);
@@ -192,22 +229,17 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 					panLisPers.textBusca.setText("");
 					panLisPers.setVisible(true);
 					panRegPers.setVisible(false);
-				//	JOptionPane.showMessageDialog(null,	"Datos almacenados exitosamente",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
+					
 				
-				}else{
-					JOptionPane.showMessageDialog(null, "Debe introducir por lo minimo 5 horas en la carga horaria", "Mensaje del sistema", JOptionPane.WARNING_MESSAGE); 
-
-				}
 			}else{
 				JOptionPane.showMessageDialog(null, "Los campos que tienen asterisco rojo son obligatorios", "Mensaje del sistema", JOptionPane.WARNING_MESSAGE); 
+	
 			}
 			
-			
-		}
-		
+		}	
+	
 	}
-
-
+		
 	public void mouseReleased(MouseEvent e) {
 		
 		if(ets.equals("btmGuardar")){
@@ -228,8 +260,6 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 			}
 	}
 		
-
-	@Override
 	public void mousePressed(MouseEvent e) {
 		if(ets.equals("btmGuardar")){
 			ImageIcon mGua = new ImageIcon(VistaPortada.class.getResource("/Dise\u00F1oGeneral/btmGuardar-1.png"));
@@ -287,11 +317,9 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 				
 				if((key < 'A' || key > 'Z')&&!(key=='Ñ')&&!(key==' ')){
 					
-					e.consume();
-					
+					e.consume();					
 				}
-				
-				
+								
 			}else{
 				e.consume();
 			}
@@ -324,9 +352,7 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 			
 			
 		}
-		
-		
-
+	
 		if(ets.equals("textCedula")){		
 	
 			if(Character.isLowerCase(key)){
@@ -405,6 +431,90 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 		
 	}
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+
+		if(ets.equals("btnCargaHoraria")){	
+			if(panLisPers.table.getSelectedRow()!=-1 ){
+			DefaultTableModel list=(DefaultTableModel) panLisPers.table.getModel();
+			CargaHoraria carHo = new CargaHoraria(panRegPers);
+			String ident = (String)list.getValueAt(panLisPers.table.getSelectedRow(), 1);
+			DefaultTableModel horario=(DefaultTableModel) visCarHor.table.getModel();
+			carHo.Limpiar(horario);
+			carHo.Mostrar(horario, ident);
+			}
+			
+			
+			panRegPers.btCar=true;
+			visCarHor.setVisible(true);
+			
+			
+			
+		}
+		
+		if(ets.equals("comCargo")){
+			
+			if(panRegPers.comCargo.getSelectedIndex()==0){
+				panRegPers.btnCargaHoraria.setVisible(false);
+				panRegPers.lblJornadaLaboral.setVisible(false);
+				panRegPers.comJornaLabo.setVisible(false);
+			}else{
+				if(panRegPers.comCargo.getSelectedIndex()==1){
+					panRegPers.lblJornadaLaboral.setVisible(false);
+					panRegPers.comJornaLabo.setVisible(false);
+					panRegPers.btnCargaHoraria.setVisible(true);
+				}else{
+					panRegPers.btnCargaHoraria.setVisible(false);
+					panRegPers.lblJornadaLaboral.setVisible(true);
+					panRegPers.comJornaLabo.setVisible(true);
+				}
+			}
+			
+			
+			
+		}
+		
+		
+		
+	}
+
+	public void focusLost(FocusEvent arg0) {
+		if(ets.equals("textCedula")){
+			ClaseConection co = new ClaseConection();
+			co.GetConexion("1323027");
+			String sqlCe = "select cedu from pers";
+			ResultSet geCe = co.GetDatos(sqlCe);
+			
+			try {
+				while(geCe.next()){
+					if(geCe.getString("cedu").equals(panRegPers.textCedula.getText())){
+					 JOptionPane.showMessageDialog(null, "La cedula "+panRegPers.textCedula.getText()+" ya esta registrada");
+     				 panRegPers.textCedula.setText("");
+					}
+					
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			co.SetCloseConexion();
+		}
+		
+	}
+
+	
+
+
+
+public void focusGained(FocusEvent arg0) {
+	
+		
+		
+		
+	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -417,6 +527,11 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 		// TODO Auto-generated method stub
 		
 	}
+
+	
+
+	
+	
 
 	
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-02-22T20:28:26 -->
+<!-- 2017-03-20T19:35:51 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_Letter" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="60430503-83f2-49b5-9b8b-3acdf5b08f76">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="carg" class="java.lang.String"/>
@@ -11,6 +11,7 @@
 	<field name="Nombre" class="java.lang.String"/>
 	<field name="Apellido" class="java.lang.String"/>
 	<field name="Telefono" class="java.lang.String"/>
+	<field name="H.L" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -41,7 +42,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="40" y="3" width="130" height="25" uuid="f9b92e16-ba66-4027-9383-471504bbe5ed"/>
+				<reportElement x="40" y="3" width="100" height="25" uuid="f9b92e16-ba66-4027-9383-471504bbe5ed"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -54,7 +55,7 @@
 				<text><![CDATA[Cedula]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="3" width="130" height="27" uuid="3c5e189e-1e21-40e8-9d7a-0e3d40b145ff"/>
+				<reportElement x="140" y="3" width="110" height="27" uuid="3c5e189e-1e21-40e8-9d7a-0e3d40b145ff"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -67,7 +68,7 @@
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="3" width="130" height="27" uuid="96ba1a89-23e1-41f2-823b-a8ad7001afbd"/>
+				<reportElement x="250" y="3" width="110" height="27" uuid="96ba1a89-23e1-41f2-823b-a8ad7001afbd"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -80,7 +81,7 @@
 				<text><![CDATA[Apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="430" y="3" width="140" height="27" uuid="904808b3-190d-482b-b217-75e4c0e57b56"/>
+				<reportElement x="360" y="3" width="110" height="27" uuid="904808b3-190d-482b-b217-75e4c0e57b56"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -105,10 +106,23 @@
 				</textElement>
 				<text><![CDATA[ID]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="470" y="3" width="100" height="27" uuid="de21dc5f-a2f0-440a-911b-b4cc2e238435"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[H.L]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="24" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="-1" width="570" height="25" uuid="75c95475-41d7-4124-bd44-0a5a38278761"/>
 				<box>
@@ -133,7 +147,7 @@
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="" x="40" y="0" width="130" height="24" uuid="87f585a6-1395-4d93-8117-c5ef3dbf0d67"/>
+				<reportElement key="" x="40" y="0" width="100" height="24" uuid="87f585a6-1395-4d93-8117-c5ef3dbf0d67"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -146,7 +160,7 @@
 				<textFieldExpression><![CDATA[$F{Cedula}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement x="170" y="0" width="130" height="24" uuid="fbe39ade-e6e9-4205-bd4d-f2d0e59e2159"/>
+				<reportElement x="140" y="0" width="110" height="24" uuid="fbe39ade-e6e9-4205-bd4d-f2d0e59e2159"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -159,7 +173,7 @@
 				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="0" width="130" height="24" uuid="ba3ad44f-507e-4d69-b219-a6c22853d2d8"/>
+				<reportElement x="250" y="0" width="110" height="24" uuid="ba3ad44f-507e-4d69-b219-a6c22853d2d8"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -172,7 +186,7 @@
 				<textFieldExpression><![CDATA[$F{Apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="430" y="-1" width="140" height="25" uuid="a1e02097-f5b9-4933-b128-9186107b2293"/>
+				<reportElement x="360" y="-1" width="110" height="25" uuid="a1e02097-f5b9-4933-b128-9186107b2293"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -183,6 +197,19 @@
 					<font fontName="Segoe UI" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="100" height="25" uuid="6be31aee-8ae8-40f6-a922-8ee3df6f28c2"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{H.L}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

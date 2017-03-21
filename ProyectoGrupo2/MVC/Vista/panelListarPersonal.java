@@ -59,7 +59,7 @@ public class panelListarPersonal extends JPanel {
 		Icon icono11 = new ImageIcon(fot11.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_DEFAULT));
 		
 		textBusca = new JTextField();
-		textBusca.setBounds(160, 78, 151, 20);
+		textBusca.setBounds(127, 78, 151, 20);
 		add(textBusca);
 		textBusca.setColumns(10);
 		
@@ -73,7 +73,7 @@ public class panelListarPersonal extends JPanel {
 		
 		JLabel lblBuscador = new JLabel("Buscador");
 		lblBuscador.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblBuscador.setBounds(78, 74, 86, 23);
+		lblBuscador.setBounds(45, 74, 86, 23);
 		add(lblBuscador);
 		
 		btmConsultar = new JLabel("New label");
@@ -83,14 +83,14 @@ public class panelListarPersonal extends JPanel {
 		btmConsultar.setIcon(Con);
 		add(btmConsultar);
 		
-		JLabel lblCargo = new JLabel("Cargo");
+		JLabel lblCargo = new JLabel("Tipo de personal");
 		lblCargo.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblCargo.setBounds(366, 74, 86, 23);
+		lblCargo.setBounds(315, 74, 134, 23);
 		add(lblCargo);
 		
 		JLabel lblStatus = new JLabel("Status");
 		lblStatus.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblStatus.setBounds(637, 74, 86, 23);
+		lblStatus.setBounds(660, 74, 86, 23);
 		add(lblStatus);
 		
 		btmExportaList = new JLabel("New label");
@@ -102,7 +102,7 @@ public class panelListarPersonal extends JPanel {
 		
 		comStatu = new JComboBox();
 		comStatu.setModel(new DefaultComboBoxModel(new String[] {"Activo", "Inactivo"}));
-		comStatu.setBounds(692, 78, 169, 20);
+		comStatu.setBounds(715, 78, 169, 20);
 		add(comStatu);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -114,7 +114,7 @@ public class panelListarPersonal extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"ID", "Cedula", "Nombre", "Apellido", "Telefono", "Cargo"
+				"ID", "Cedula", "Nombre", "Apellido", "Telefono", "H.L"
 			}
 		));
 		table.getColumnModel().getColumn(5).setPreferredWidth(120);
@@ -126,8 +126,8 @@ public class panelListarPersonal extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		comCarg = new JComboBox();
-		comCarg.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Docente", "Administrativo", "Operativo"}));
-		comCarg.setBounds(415, 78, 169, 20);
+		comCarg.setModel(new DefaultComboBoxModel(new String[] {"Docente", "Administrativo", "Operativo"}));
+		comCarg.setBounds(451, 78, 169, 20);
 		add(comCarg);
 		label.setIcon(icono11);
 

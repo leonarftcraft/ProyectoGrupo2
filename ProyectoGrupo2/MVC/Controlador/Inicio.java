@@ -4,9 +4,13 @@ import java.awt.EventQueue;
 import java.util.HashMap;
 import java.util.Map;
 
+import Modelo.Asistencia;
 import Modelo.Personal;
+import Vista.VistaCargaHorario;
 import Vista.VistaGestionPersonal;
 import Vista.VistaPortada;
+import Vista.VistaRegistrarAsistencia;
+import Vista.VistaRegistrarCalendarioAcademico;
 import Vista.panelListarPersonal;
 import Vista.panelRegistrarPersonal;
 import net.sf.jasperreports.engine.JRException;
@@ -25,33 +29,18 @@ public class Inicio {
 				try {
 					
 					panelListarPersonal panLisPers = new panelListarPersonal();
-					
-					try {
-						
-						JRTableModelDataSource jrtmd = new JRTableModelDataSource( panLisPers.table.getModel() );
-						JasperReport nuestroreporte = null; 
-						Map parametro = new HashMap(); 
-						parametro.put("carg", "");
-						nuestroreporte = (JasperReport) JRLoader.loadObject(Personal.class.getResource( "/Plantillas/Blank_Letter.jasper"));
-						JasperPrint jasperPrint = JasperFillManager.fillReport(nuestroreporte, parametro, jrtmd); 
-
-						
-						
-					
-					} catch (JRException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-
-					} 
-					
-					
 					VistaGestionPersonal visGesPer = new VistaGestionPersonal();
 					VistaPortada visPor = new VistaPortada();
 					panelRegistrarPersonal panRegPers = new panelRegistrarPersonal();
+				    VistaCargaHorario visCarHor = new VistaCargaHorario();
+				    VistaRegistrarCalendarioAcademico regCaleAca = new VistaRegistrarCalendarioAcademico();
+				    VistaRegistrarAsistencia visRegAsis = new VistaRegistrarAsistencia();
+				    Asistencia asi = new Asistencia(regCaleAca, null);
+				    
+				    asi.setRegistrosAutomaticos();
+				    visPor.setVisible(true);
 					
-					visPor.setVisible(true);
-					
-					new ControladorPrincipal(visPor, visGesPer, panRegPers, panLisPers);
+					new ControladorPrincipal(visRegAsis, regCaleAca, visCarHor, visPor, visGesPer, panRegPers, panLisPers);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

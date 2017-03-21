@@ -29,6 +29,7 @@ private JTextField Apellido;
 public JTextField Cedula;
 private JTextField Telefono;
 private JComboBox Cargo;
+private JComboBox Sexo;
 private JComboBox Status;
 private JDatePickerImpl FechaNacimiento;
 private ClaseConection co = new ClaseConection();
@@ -43,6 +44,7 @@ public Personal(panelRegistrarPersonal panRegPers){
 	this.Cargo = panRegPers.comCargo;
 	this.FechaNacimiento = panRegPers.textFecNaci;
 	this.Status = panRegPers.comStatus;
+	this.Sexo = panRegPers.comSexo;
 }
 public Personal(){
 	
@@ -82,10 +84,11 @@ public void Registrar(){
 		FilNaci = FechaNacimiento.getJFormattedTextField().getText();
 	}
 	
-	String RegPer = "insert into pers (nomb, apel, cedu, tele, fechNaci, stat, fk_carg) values ("
-			+ "'"+Nombre.getText()+"', '"+Apellido.getText()+"', '"+Cedula.getText()+"', '"+Telefono.getText()+"', "
+	String RegPer = "insert into pers (nomb, sexo, apel, cedu, tele, fechNaci, stat, fk_tipoPers) values ("
+			+ "'"+Nombre.getText()+"', '"+Sexo.getSelectedItem().toString()+"', '"+Apellido.getText()+"', '"+Cedula.getText()+"', '"+Telefono.getText()+"', "
 					+ "'"+FilNaci+"', 'Activo', '"+Cargo.getSelectedIndex()+"'"
 			+ ")";
+
 	
 	co.SetDatos(RegPer);
 	co.SetCloseConexion();
@@ -94,9 +97,11 @@ public void Registrar(){
 
 public void Mostrar(String Ident){
 	this.Ident = Ident;
+	
+	
 	co.GetConexion("1323027");
 	
-	String MosPer = "select nomb, apel, cedu, tele, fechNaci, stat, fk_carg from pers where cedu = '"+Ident+"'";
+	String MosPer = "select nomb, sexo, apel, cedu, tele, fechNaci, stat, fk_tipoPers from pers where cedu = '"+Ident+"'";
 
 	ResultSet op = co.GetDatos(MosPer);
 	
@@ -115,7 +120,14 @@ public void Mostrar(String Ident){
 				}
 				
 			}
-			Cargo.setSelectedIndex(op.getInt("fk_carg"));
+			for(int a = 0; a<=3; a++){
+				Sexo.setSelectedIndex(a);
+				if(Sexo.getSelectedItem().equals(op.getString("sexo"))){
+					break;
+				}
+				
+			}
+			Cargo.setSelectedIndex(op.getInt("fk_tipoPers"));
 		
 			if(!op.getString("fechNaci").equals("0001-01-01")){
 				FechaNacimiento.getJFormattedTextField().setText(op.getString("fechNaci"));
@@ -131,8 +143,9 @@ public void Mostrar(String Ident){
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
+
 	co.SetCloseConexion();
+
 }
 public void Modificar(String idPers){
 	co.GetConexion("1323027");
@@ -146,12 +159,13 @@ public void Modificar(String idPers){
 	
 	String SqUda = "update pers set "
 			+ "nomb='"+Nombre.getText()+"', "
+			+ "sexo='"+Sexo.getSelectedItem().toString()+"', "
 			+ "apel='"+Apellido.getText()+"', "
 			+ "tele='"+Telefono.getText()+"', "
 			+ "cedu='"+Cedula.getText()+"', "
 			+ "stat='"+Status.getSelectedItem().toString()+"', "
 			+ "fechNaci='"+fec+"', "
-			+ "fk_carg='"+Cargo.getSelectedIndex()+"' "
+			+ "fk_tipoPers='"+Cargo.getSelectedIndex()+"' "
 			+ "where cedu = '"+idPers+"'";
 
 	co.SetDatos(SqUda);
@@ -177,18 +191,27 @@ public void Listar(DefaultTableModel modelo, String Sql, int filasTabla){
 	Co.GetConexion("1323027");
 	// se crea un objeto tipo resultset y se le pasa lo que se obtiene del metodo getdatos
 	//nota: el metodo getdatos necesita una sentencia sql ella debe benir cuando se instancie el metodo llenartabla
-	ResultSet f = Co.GetDatos(Sql);
-	//se invoca el metodo next de la clase resultset para poder recorrer todo los datos obtenidos de mysql
+	ResultSet f = Co.GetDatos(Sql);	
 	
-	int contador=0;
+	
+	
+	//se invoca el metodo next de la clase resultset para poder recorrer todo los datos obtenidos de mysql
+		int contador=0;
 	try {
 		while (f.next()) {
+						
 			//se crea un objeto con espacion mayor a la cantida de columnas que tenga nuestra tabla
 			Object[] colum = new Object[9];
 			
 		String nomb[] = f.getString("b").split(" ");
 		String apel[] = f.getString("c").split(" ");
+		String tem= null;
 		
+		/*if(!HL.equals("0")){
+			tem=HL;
+		}else{
+			tem=
+		}*/
 			contador++;
 			//se aguarda cada dato obtenido de mysql en columnas
 			colum[0] = contador;
@@ -199,7 +222,7 @@ public void Listar(DefaultTableModel modelo, String Sql, int filasTabla){
 			colum[5] = f.getString("e");
 		
 			//se le pasa los datos guardados al modelo de la tabla
-				modelo.addRow(colum);	
+			modelo.addRow(colum);	
 				
 			
 				
@@ -223,6 +246,7 @@ public void Limpiar(){
 	FechaNacimiento.getJFormattedTextField().setText("");
 	Cargo.setSelectedIndex(0);
 	Status.setSelectedIndex(0);
+	Sexo.setSelectedIndex(0);
 	
 }
 

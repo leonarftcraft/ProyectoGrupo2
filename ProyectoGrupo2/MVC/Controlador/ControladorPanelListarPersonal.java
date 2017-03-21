@@ -14,7 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import Modelo.CargaHoraria;
+import Modelo.JornadaLaboral;
 import Modelo.Personal;
+import Vista.VistaCargaHorario;
 import Vista.VistaGestionPersonal;
 import Vista.VistaPortada;
 import Vista.panelListarPersonal;
@@ -26,12 +28,14 @@ public class ControladorPanelListarPersonal implements MouseListener, KeyListene
 	private VistaGestionPersonal visGesPer;
 	private panelListarPersonal panLisPers;
 	private panelRegistrarPersonal panRegPers;
+	private VistaCargaHorario visCarHor;
 	private String ets;
 	
-	public ControladorPanelListarPersonal(VistaGestionPersonal visGesPer, panelListarPersonal panLisPers, 
+	public ControladorPanelListarPersonal(VistaCargaHorario visCarHor, VistaGestionPersonal visGesPer, panelListarPersonal panLisPers, 
 			panelRegistrarPersonal panRegPers, String ets) {
 	
 		this.ets =ets;
+		this.visCarHor = visCarHor;
 		this.panRegPers = panRegPers;
 		this.visGesPer = visGesPer;
 		this.panLisPers = panLisPers;
@@ -43,15 +47,18 @@ public class ControladorPanelListarPersonal implements MouseListener, KeyListene
 		String Sql;
 		
 		if(panLisPers.comCarg.getSelectedIndex()!=0){
-			 Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-					+ "inner join carg on  pers.fk_carg=carg.id where pers.fk_carg='"+panLisPers.comCarg.getSelectedIndex()+"' and stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"'";
-			
+			 Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+						+ "intehora.decr as e "
+						+ "from inteHora INNER JOIN jornLabo ON jornLabo.fk_inteHora=inteHora.id "
+						+ "INNER JOIN pers ON jornLabo.fk_pers=pers.id "
+						+ " where pers.stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"' and pers.fk_tipoPers='"+(panLisPers.comCarg.getSelectedIndex()+1)+"'";
 		}else{
-			 Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-					+ "inner join carg on pers.fk_carg=carg.id and stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"'";
-		
+			 Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+					+ "count(cargHora.fk_pers) as e "
+					+ "from cargHora INNER JOIN pers ON cargHora.fk_pers=pers.id"
+					+ " where pers.stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"' and pers.fk_tipoPers='1' group by cargHora.fk_pers";
 		}
-		
+		System.out.println(Sql);
 		Personal pers = new Personal();
 		DefaultTableModel modelo=(DefaultTableModel) panLisPers.table.getModel();
 		int filasTabla = panLisPers.table.getRowCount();
@@ -62,15 +69,20 @@ public class ControladorPanelListarPersonal implements MouseListener, KeyListene
 	
 	if(ets.equals("comStatu")){
 		String Sql;
-		if(panLisPers.comCarg.getSelectedIndex()!=0){
-			 Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-					+ "inner join carg on  pers.fk_carg=carg.id where pers.fk_carg='"+panLisPers.comCarg.getSelectedIndex()+"' and stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"'";
-			
-		}else{
-			 Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-					+ "inner join carg on pers.fk_carg=carg.id and stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"'";
 		
-		}
+			if(panLisPers.comCarg.getSelectedIndex()!=0){
+				 Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+							+ "intehora.decr as e "
+							+ "from inteHora INNER JOIN jornLabo ON jornLabo.fk_inteHora=inteHora.id "
+							+ "INNER JOIN pers ON jornLabo.fk_pers=pers.id "
+							+ " where pers.stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"' and pers.fk_tipoPers='"+(panLisPers.comCarg.getSelectedIndex()+1)+"'";
+			}else{
+				 Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+						+ "count(cargHora.fk_pers) as e "
+						+ "from cargHora INNER JOIN pers ON cargHora.fk_pers=pers.id"
+						+ " where pers.stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"' and pers.fk_tipoPers='"+(panLisPers.comCarg.getSelectedIndex()+1)+"' group by cargHora.fk_pers";
+			}		
+		
 		Personal pers = new Personal();
 		DefaultTableModel modelo=(DefaultTableModel) panLisPers.table.getModel();
 		int filasTabla = panLisPers.table.getRowCount();
@@ -114,21 +126,27 @@ public class ControladorPanelListarPersonal implements MouseListener, KeyListene
 		
 		if(ets.equals("textBusca")){
 			String Sql;
-			
-		if(panLisPers.comCarg.getSelectedIndex()!=0){
-			 Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-						+ "inner join carg on  pers.fk_carg=carg.id where pers.fk_carg='"+panLisPers.comCarg.getSelectedIndex()+"' "
-						+ "and stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"' and  (cedu like '"+panLisPers.textBusca.getText()+"%' or nomb like '"+panLisPers.textBusca.getText()+"%' "
-						+ "or apel like '"+panLisPers.textBusca.getText()+"%')";
-		
-		}else{
-			Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-				+ "inner join carg on  pers.fk_carg=carg.id where stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"' "
+			if(panLisPers.comCarg.getSelectedIndex()!=0){
+				 Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+							+ "intehora.decr as e "
+							+ "from inteHora INNER JOIN jornLabo ON jornLabo.fk_inteHora=inteHora.id "
+							+ "INNER JOIN pers ON jornLabo.fk_pers=pers.id "
+							+ " where pers.stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"' "
+							+ "and pers.fk_tipoPers='"+(panLisPers.comCarg.getSelectedIndex()+1)+"' "
+							+ "and  (cedu like '"+panLisPers.textBusca.getText()+"%' or nomb like '"+panLisPers.textBusca.getText()+"%' "
+						    + "or apel like '"+panLisPers.textBusca.getText()+"%')";
+				 
+			}else{
+				 Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+						+ "count(cargHora.fk_pers) as e "
+						+ "from cargHora INNER JOIN pers ON cargHora.fk_pers=pers.id"
+						+ " where pers.stat = '"+panLisPers.comStatu.getSelectedItem().toString()+"' and pers.fk_tipoPers='1' "
 						+ "and  (cedu like '"+panLisPers.textBusca.getText()+"%' or nomb like '"+panLisPers.textBusca.getText()+"%' "
-						+ "or apel like '"+panLisPers.textBusca.getText()+"%')";
+						+ "or apel like '"+panLisPers.textBusca.getText()+"%') group by cargHora.fk_pers";
+			}
+		
+		
 	
-		}
-
 		Personal pers = new Personal();
 		DefaultTableModel modelo=(DefaultTableModel) panLisPers.table.getModel();
 		int filasTabla = panLisPers.table.getRowCount();
@@ -142,17 +160,31 @@ public class ControladorPanelListarPersonal implements MouseListener, KeyListene
 		}
 		if(ets.equals("btmConsultar")){
 			
-			DefaultTableModel horario=(DefaultTableModel) panRegPers.table.getModel();
+			
 			DefaultTableModel list=(DefaultTableModel) panLisPers.table.getModel();
+			DefaultTableModel horario=(DefaultTableModel) visCarHor.table.getModel();
 			if(panLisPers.table.getSelectedRow()!=-1 ){
 				Personal pers = new Personal(panRegPers);
 				CargaHoraria carHo = new CargaHoraria(panRegPers);
+				JornadaLaboral jorN = new JornadaLaboral(panRegPers);
 				String ident = (String)list.getValueAt(panLisPers.table.getSelectedRow(), 1);
-				carHo.Limpiar(horario);
+			
 				pers.Mostrar(ident);
-				carHo.Mostrar(horario, ident);
-				panRegPers.lblStatus.setVisible(true);
-				panRegPers.comStatus.setVisible(true);
+				
+				if(panRegPers.comCargo.getSelectedIndex()==1){
+					panRegPers.btnCargaHoraria.setVisible(true);
+					panRegPers.lblJornadaLaboral.setVisible(false);
+					panRegPers.comJornaLabo.setVisible(false);
+					carHo.Mostrar(ident);
+				}else{
+					panRegPers.btnCargaHoraria.setVisible(false);
+					panRegPers.lblJornadaLaboral.setVisible(true);
+					panRegPers.comJornaLabo.setVisible(true);
+					jorN.Mostrar();
+				}
+				
+				
+				panRegPers.comCargo.setEnabled(false);
 				panRegPers.lblStatus.setVisible(true);
 				panRegPers.comStatus.setVisible(true);
 				panRegPers.btmGuardar.setVisible(false);
@@ -175,14 +207,10 @@ public class ControladorPanelListarPersonal implements MouseListener, KeyListene
 		if(ets.equals("btmExportaList")){
 			JRTableModelDataSource jrtmd = new JRTableModelDataSource( panLisPers.table.getModel() );
 			String carg=null;
-			
-			if(panLisPers.comCarg.getSelectedIndex()!=0){
 				
 				carg = panLisPers.comCarg.getSelectedItem().toString();
 				
-			}else{
-				carg="";
-			}
+			
 			Personal pers = new Personal();
 			int filas = panLisPers.table.getRowCount();
 			if(filas!=0){

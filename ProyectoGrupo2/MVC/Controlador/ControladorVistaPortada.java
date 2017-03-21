@@ -6,12 +6,17 @@ import java.awt.event.MouseListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import Animacion.Animacion;
+import Modelo.CalendarioAcademico;
+import Modelo.ClaseConection;
 import Modelo.Personal;
 import Vista.VistaGestionPersonal;
 import Vista.VistaPortada;
+import Vista.VistaRegistrarAsistencia;
+import Vista.VistaRegistrarCalendarioAcademico;
 import Vista.panelListarPersonal;
 import Vista.panelRegistrarPersonal;
 
@@ -20,15 +25,19 @@ public class ControladorVistaPortada implements MouseListener{
 	private VistaGestionPersonal visGesPer;
 	private panelListarPersonal panLisPers;
 	private panelRegistrarPersonal panRegPers;
+	private VistaRegistrarAsistencia visRegAsis;
+	private VistaRegistrarCalendarioAcademico regCaleAca;
 	private String est;
 
-	public ControladorVistaPortada(VistaPortada visPor, VistaGestionPersonal visGesPer, panelListarPersonal panLisPers, 
+	public ControladorVistaPortada(VistaRegistrarAsistencia visRegAsis, VistaRegistrarCalendarioAcademico regCaleAca, VistaPortada visPor, VistaGestionPersonal visGesPer, panelListarPersonal panLisPers, 
 			panelRegistrarPersonal panRegPers, String est) {
 		this.est = est;
 		this.panLisPers = panLisPers;
 		this.panRegPers = panRegPers;
 		this.visPor = visPor;
 		this.visGesPer = visGesPer;
+		this.regCaleAca=regCaleAca;
+		this.visRegAsis=visRegAsis;
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -216,16 +225,39 @@ public class ControladorVistaPortada implements MouseListener{
 			DefaultTableModel modelo=(DefaultTableModel) panLisPers.table.getModel();
 			int filasTabla = panLisPers.table.getRowCount();
 
-			String Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-					+ "inner join carg on  pers.fk_carg=carg.id where stat = 'Activo'";
-			
+			String Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+					+ "count(cargHora.fk_pers) as e "
+					+ "from cargHora INNER JOIN pers ON cargHora.fk_pers=pers.id"
+					+ " where pers.stat = 'Activo' and pers.fk_tipoPers='1' group by fk_pers";
 			pers.Listar(modelo, Sql, filasTabla);
 			panLisPers.setVisible(true);
 			panLisPers.comCarg.setSelectedIndex(0);
 			panLisPers.textBusca.setText("");
 			panLisPers.comStatu.setSelectedIndex(0);
 			panRegPers.setVisible(false);
+			panRegPers.btCar=false;
 			visGesPer.setVisible(true);
+		}
+		if(est.equals("menRegiAsis")){
+			CalendarioAcademico cal = new CalendarioAcademico(regCaleAca);
+		
+			if(cal.getValido()==true){
+				String fech[]=cal.Mostrar();
+				
+				visRegAsis.labFechInic.setText(fech[0]);
+				visRegAsis.labFechFin.setText(fech[1]);
+				visRegAsis.setVisible(true);
+				
+			}else{
+				JOptionPane.showMessageDialog(null,	"El calendario academico no es valido",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
+				cal.setVacios();
+				regCaleAca.btmGuardar.setVisible(true);
+				regCaleAca.btmActulizar.setVisible(false);
+				regCaleAca.setVisible(true);
+			}
+			
+			
+			
 		}
 		
 	}

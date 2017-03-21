@@ -40,7 +40,7 @@ public class CargaHoraria extends Personal{
 		String Dele = "DELETE FROM cargHora WHERE fk_pers = '"+codigo+"'";
 		co.SetDatos(Dele);
 		
-		for(int a=0; a<=10; a++){
+		for(int a=0; a<=12; a++){
 			
 			
 			for(int b=1; b<=5; b++){
@@ -50,6 +50,7 @@ public class CargaHoraria extends Personal{
 					
 					String sqHor = "insert into cargHora (fk_diasLabo, fk_horaLabo, fk_pers) values ('"+b+"', '"+(a+1)+"', '"+codigo+"')";
 					co.SetDatos(sqHor);
+				
 				}
 				
 				
@@ -82,7 +83,7 @@ public class CargaHoraria extends Personal{
 			e.printStackTrace();
 		}
 		
-		for(int a=0; a<=10; a++){
+		for(int a=0; a<=12; a++){
 			
 			
 			for(int b=1; b<=5; b++){
@@ -91,6 +92,7 @@ public class CargaHoraria extends Personal{
 				if((Boolean)this.horario.getValueAt(a, b)){
 					
 					String sqHor = "insert into cargHora (fk_diasLabo, fk_horaLabo, fk_pers) values ('"+b+"', '"+(a+1)+"', '"+codigo+"')";
+					
 					co.SetDatos(sqHor);
 				}
 				
@@ -101,6 +103,7 @@ public class CargaHoraria extends Personal{
 		co.SetCloseConexion();
 	}
 	public void Mostrar(DefaultTableModel horario, String Ident){
+	
 		ClaseConection co = new ClaseConection();
 		co.GetConexion("1323027");
 		String SqlidPers = "select id from pers where cedu = '"+Ident+"'";
@@ -139,7 +142,7 @@ public class CargaHoraria extends Personal{
 	
 	public void Limpiar(DefaultTableModel horario){
 		
-	for(int a=0; a<=10; a++){
+	for(int a=0; a<=12; a++){
 			
 	
 		

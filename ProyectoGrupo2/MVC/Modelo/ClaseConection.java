@@ -20,7 +20,7 @@ public class ClaseConection {
 		try {
 			// driver mysql
 			Class.forName("com.mysql.jdbc.Driver");
-			Cone = DriverManager.getConnection("jdbc:mysql://localhost:3306/asisproo", "root", Pass);
+			Cone = DriverManager.getConnection("jdbc:mysql://localhost:3306/asispers", "root", Pass);
 
 		} catch (ClassNotFoundException ex) {
 			// en el caso de error se mostrara esto
@@ -54,7 +54,7 @@ public class ClaseConection {
 			k.executeUpdate(sql);
 	
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "error al guardar datos");
+			JOptionPane.showMessageDialog(null, "error al guardar datoss");
 		}
 
 	}

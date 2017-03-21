@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Modelo.CargaHoraria;
 import Modelo.Personal;
+import Vista.VistaCargaHorario;
 import Vista.VistaGestionPersonal;
 import Vista.VistaPortada;
 import Vista.panelListarPersonal;
@@ -20,12 +21,14 @@ public class ControladorVistaGestionPersonal implements MouseListener{
 	private VistaGestionPersonal visGesPer;
 	private panelRegistrarPersonal panRegPers;
 	private panelListarPersonal panLisPers;
+	private VistaCargaHorario visCarHor;
 	private String est;
 	
-	public ControladorVistaGestionPersonal(VistaPortada visPor, VistaGestionPersonal visGesPer, 
+	public ControladorVistaGestionPersonal(VistaCargaHorario visCarHor, VistaPortada visPor, VistaGestionPersonal visGesPer, 
 			panelListarPersonal panLisPers, panelRegistrarPersonal panRegPers, String est) {
 	
 		this.panLisPers = panLisPers;
+		this.visCarHor=visCarHor;
 		this.est = est;
 		this.panRegPers=panRegPers;
 		this.visPor = visPor;
@@ -109,25 +112,28 @@ public class ControladorVistaGestionPersonal implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		if(est.equals("menRegistrar")){
-			DefaultTableModel horario=(DefaultTableModel) panRegPers.table.getModel();
+			DefaultTableModel horario=(DefaultTableModel) visCarHor.table.getModel();
 
 			if(panRegPers.isVisible()==false || panRegPers.btmActualizar.isVisible()==true){
+				Personal pers = new Personal(panRegPers);
+				CargaHoraria car = new CargaHoraria(panRegPers);
+				pers.Limpiar();
+				car.Limpiar(horario);
 				panRegPers.btmGuardar.setVisible(true);
 				panRegPers.btmActualizar.setVisible(false);
 				panRegPers.setVisible(true);
 				panLisPers.setVisible(false);
 				panRegPers.lblStatus.setVisible(false);
 				panRegPers.comStatus.setVisible(false);
-				
+				panRegPers.comCargo.setEnabled(true);
+				panRegPers.comJornaLabo.setSelectedIndex(0);
 				ImageIcon fot11 = new ImageIcon(VistaPortada.class.getResource("/panelRegistrarPersonal/tiuloRegPersonal.png"));
 				Icon icono11 = new ImageIcon(fot11.getImage().getScaledInstance(panRegPers.tituRegsiPers.getWidth(), panRegPers.tituRegsiPers.getHeight(), Image.SCALE_DEFAULT));
 				panRegPers.tituRegsiPers.setIcon(icono11);
 				
-				Personal pers = new Personal(panRegPers);
-				CargaHoraria car = new CargaHoraria(panRegPers);
 				
-				pers.Limpiar();
-				car.Limpiar(horario);
+				
+				
 				
 				ImageIcon fot8 = new ImageIcon(VistaPortada.class.getResource("/VistaGestionPersonal/Listar-1.png"));		
 				Icon icono8 = new ImageIcon(fot8.getImage().getScaledInstance(visGesPer.menListar.getWidth(), visGesPer.menListar.getHeight(), Image.SCALE_DEFAULT));		
@@ -147,8 +153,11 @@ public class ControladorVistaGestionPersonal implements MouseListener{
 				DefaultTableModel modelo=(DefaultTableModel) panLisPers.table.getModel();
 				int filasTabla = panLisPers.table.getRowCount();
 
-				String Sql = "select pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, carg.descr as e from pers "
-						+ "inner join carg on  pers.fk_carg=carg.id where stat = 'Activo'";
+				String Sql = "select pers.id as i, pers.cedu as a, pers.nomb as b, pers.apel as c, pers.tele as d, "
+						+ "count(cargHora.fk_pers) as e "
+						+ "from cargHora INNER JOIN pers ON cargHora.fk_pers=pers.id"
+						+ " where pers.stat = 'Activo' and pers.fk_tipoPers='1' group by fk_pers";
+			
 				
 				pers.Listar(modelo, Sql, filasTabla);
 				ImageIcon fot8 = new ImageIcon(VistaPortada.class.getResource("/VistaGestionPersonal/Registrar-1.png"));		
