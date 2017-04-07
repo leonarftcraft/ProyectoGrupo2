@@ -31,6 +31,7 @@ public class VistaGestionPersonal extends JDialog {
 	 * Create the dialog.
 	 */
 	public VistaGestionPersonal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VistaGestionPersonal.class.getResource("/Dise\u00F1oGeneral/Asispro.fw.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//codigo que no permite el acceso a otras ventanas mientras este en ejecucion esta
 		setModalityType(ModalityType.APPLICATION_MODAL);

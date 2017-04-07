@@ -403,7 +403,79 @@ public class Asistencia extends CalendarioAcademico{
 		
 		co.SetCloseConexion();
 	}
-	
+
+	public int getHoraLaborales(String cedu, String fec) {
+		co.GetConexion("1323027");
+		int tiPer = 0;
+		int HoraLa=0;
+		String idPer = null;
+		String sq ="select id as a, fk_tipoPers as b from pers where cedu ='"+cedu+"'";
+		ResultSet df = co.GetDatos(sq);		
+		
+		try {
+			while(df.next()){
+				tiPer=df.getInt("b");	
+				idPer= df.getString("a");
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		int an = 0;
+		int me = 0;
+		int di = 0;
+		String feAc[] = fec.split("-");
+
+		an = Integer.parseInt(feAc[0]);
+		me = Integer.parseInt(feAc[1]);
+		di = Integer.parseInt(feAc[2]);
+		Calendar cal = new GregorianCalendar(an, me - 1, di);
+
+		int diase = cal.get(Calendar.DAY_OF_WEEK);
+		if (tiPer > 1) {
+			String J[] = null;
+			String J1[] = null;
+			String J2[] = null;
+			String jor = "select decr from inteHora INNER JOIN jornLabo ON jornLabo.fk_inteHora=inteHora.id "
+					+ "where jornLabo.fk_pers='" + idPer + "'";
+
+			ResultSet re = co.GetDatos(jor);
+
+			try {
+				while (re.next()) {
+					J = re.getString("decr").split("-");
+					J1 = J[0].split(":");
+					J2 = J[1].split(":");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			int horasPer = Integer.parseInt(J2[0]) - Integer.parseInt(J1[0]);
+			HoraLa=horasPer;
+		} else {
+			String reg = "select count(*) as a from cargHora " + "where cargHora.fk_pers='" + idPer
+					+ "' and cargHora.fk_diasLabo='" + (diase - 1) + "'";
+		
+			ResultSet ft = co.GetDatos(reg);
+			int horaPerd = 0;
+			try {
+				while (ft.next()) {
+					horaPerd = ft.getInt("a");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			HoraLa=horaPerd;
+		}
+		co.SetCloseConexion();
+		return HoraLa;
+	}
 	public void setRegistrosAutomaticos(){
 		int an=0;
 		int me=0;
@@ -487,7 +559,7 @@ public class Asistencia extends CalendarioAcademico{
 			
 			String En = "insert into asispers (fech, horaEntr, horaSali, horaPerd, fk_pers, fk_caleAcad, fk_horaJust) "
 					+ "values ('"+getFechaActual()+"', ' ', ' ', '"+horasPer+"', '"+idPer[a]+"', '"+getIdCalenAcademico()+"', '1')";
-			System.out.println(En);
+			
 			co.SetDatos(En);
 			
 		}

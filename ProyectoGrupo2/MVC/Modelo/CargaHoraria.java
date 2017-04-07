@@ -86,7 +86,7 @@ public class CargaHoraria extends Personal{
 		for(int a=0; a<=12; a++){
 			
 			
-			for(int b=1; b<=5; b++){
+			for(int b=1; b<=-5; b++){
 				
 				
 				if((Boolean)this.horario.getValueAt(a, b)){
@@ -144,9 +144,6 @@ public class CargaHoraria extends Personal{
 		
 	for(int a=0; a<=12; a++){
 			
-	
-		
-		
 			for(int b=1; b<=5; b++){
 								
 				if((Boolean)horario.getValueAt(a, b)){

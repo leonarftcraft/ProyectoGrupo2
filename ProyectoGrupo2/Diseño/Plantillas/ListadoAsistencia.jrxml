@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-03-22T07:58:41 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListadoAsistencia" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b948327a-506a-4a70-bab8-06decfe31274">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="carg" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="Cedula" class="java.lang.String"/>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="Apellido" class="java.lang.String"/>
+	<field name="Entrada" class="java.lang.String"/>
+	<field name="Salida" class="java.lang.String"/>
+	<field name="H.L" class="java.lang.String"/>
+	<field name="Inas" class="java.lang.String"/>
+	<field name="Inas.Just" class="java.lang.String"/>
+	<field name="Total.Inas" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="2" width="749" height="31" uuid="c710c42d-78a8-4954-b79d-e48352125769"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Listado de asistencia "+$P{carg}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="620" y="33" width="40" height="20" uuid="55434158-b861-4b0e-a47f-febb47e34430"/>
+				<textElement>
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="669" y="30" width="81" height="21" uuid="5425da0b-6835-455e-8370-af4eb29307df"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="2" width="736" height="23" uuid="12b71f3f-dfe6-4235-b5b7-67c28f81b738"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="2" width="112" height="23" uuid="2963c62d-4202-4ac2-998f-2ac5b6406b14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="2" width="113" height="23" uuid="dd377faa-670b-4e85-be3d-35e59525d118"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="2" width="113" height="23" uuid="ae2fb84c-f9a6-487e-a6e7-0dad74f95377"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="2" width="88" height="23" uuid="fba8aef5-4ed9-49e2-ba0e-147fdba362e5"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="2" width="90" height="23" uuid="0143a67e-1696-4a9d-bc3c-720e29269ee0"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="2" width="40" height="23" uuid="e5a61439-4a0e-4168-b5ab-b0d369352ccf"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[H. L]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="562" y="2" width="40" height="23" uuid="29a81d8b-8639-4d3d-a315-e28839d6e7bc"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Inas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="602" y="2" width="60" height="23" uuid="321b5c4d-7440-404d-ac85-c45e4b2d55fa"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Inas Jus.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="662" y="2" width="80" height="23" uuid="4304d0b0-3a2e-4ddd-8881-b6eca2b93ec4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Tot. Inas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="0" width="736" height="23" uuid="2c76ddff-7e5e-4a7c-b27d-e7e777ea00df"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="6" y="1" width="112" height="23" uuid="e7151470-0148-4c6a-9ae7-47eb73e2482e"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="113" height="23" uuid="dc38f6a4-2245-44b7-b0c4-8ab3ca9bd274"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="1" width="113" height="23" uuid="03d36b44-9c9a-4aeb-a6cf-4ead84733d8a"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="344" y="0" width="88" height="23" uuid="f165f4ed-7655-4d39-b4e4-4eb6318542e4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Entrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="0" width="90" height="23" uuid="d1e724bb-a7fa-4fa5-b004-1753c656d6f8"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Salida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="522" y="0" width="40" height="23" uuid="7f2d9e33-1cad-411e-940b-69814bb9cad2"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{H.L}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="562" y="0" width="40" height="23" uuid="dd188991-4cf9-4067-bd80-d1b425c55109"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Inas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="602" y="0" width="60" height="23" uuid="d3b3b257-65b7-411c-bc6a-755ed39e0856"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Inas.Just}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="662" y="0" width="80" height="23" uuid="acb9cfdf-169a-417a-8b7a-39c6adab6a70"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total.Inas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

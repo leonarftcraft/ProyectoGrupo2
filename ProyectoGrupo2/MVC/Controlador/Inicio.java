@@ -6,8 +6,12 @@ import java.util.Map;
 
 import Modelo.Asistencia;
 import Modelo.Personal;
+import Vista.PanelListarAsistencia;
 import Vista.VistaCargaHorario;
+import Vista.VistaGestionAsistencia;
 import Vista.VistaGestionPersonal;
+import Vista.VistaJustificaciones;
+import Vista.VistaLogin;
 import Vista.VistaPortada;
 import Vista.VistaRegistrarAsistencia;
 import Vista.VistaRegistrarCalendarioAcademico;
@@ -35,12 +39,16 @@ public class Inicio {
 				    VistaCargaHorario visCarHor = new VistaCargaHorario();
 				    VistaRegistrarCalendarioAcademico regCaleAca = new VistaRegistrarCalendarioAcademico();
 				    VistaRegistrarAsistencia visRegAsis = new VistaRegistrarAsistencia();
+				    VistaGestionAsistencia visGesAsis = new VistaGestionAsistencia();
+				    PanelListarAsistencia panLisAsis = new PanelListarAsistencia();
+				    VistaJustificaciones visJus = new VistaJustificaciones();
+				    VistaLogin visLog = new VistaLogin();
 				    Asistencia asi = new Asistencia(regCaleAca, null);
-				    
+				
 				    asi.setRegistrosAutomaticos();
-				    visPor.setVisible(true);
+				    visLog.setVisible(true);
 					
-					new ControladorPrincipal(visRegAsis, regCaleAca, visCarHor, visPor, visGesPer, panRegPers, panLisPers);
+					new ControladorPrincipal(visLog, visJus, panLisAsis, visGesAsis, visRegAsis, regCaleAca, visCarHor, visPor, visGesPer, panRegPers, panLisPers);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

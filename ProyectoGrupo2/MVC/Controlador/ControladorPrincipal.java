@@ -1,7 +1,11 @@
 package Controlador;
 
+import Vista.PanelListarAsistencia;
 import Vista.VistaCargaHorario;
+import Vista.VistaGestionAsistencia;
 import Vista.VistaGestionPersonal;
+import Vista.VistaJustificaciones;
+import Vista.VistaLogin;
 import Vista.VistaPortada;
 import Vista.VistaRegistrarAsistencia;
 import Vista.VistaRegistrarCalendarioAcademico;
@@ -18,17 +22,24 @@ public class ControladorPrincipal {
 	private VistaCargaHorario visCarHor;
 	private VistaRegistrarAsistencia visRegAsis;
 	private VistaRegistrarCalendarioAcademico regCaleAca;
-	
-	public ControladorPrincipal(VistaRegistrarAsistencia visRegAsis, VistaRegistrarCalendarioAcademico regCaleAca, VistaCargaHorario visCarHor, VistaPortada visPor, VistaGestionPersonal visGesPer, panelRegistrarPersonal panRegPers, 
+	private VistaGestionAsistencia visGesAsis;
+	private PanelListarAsistencia panLisAsis;
+	private VistaJustificaciones visJus;
+	private VistaLogin visLog;
+	public ControladorPrincipal(VistaLogin visLog, VistaJustificaciones visJus, PanelListarAsistencia panLisAsis, VistaGestionAsistencia visGesAsis, VistaRegistrarAsistencia visRegAsis, VistaRegistrarCalendarioAcademico regCaleAca, VistaCargaHorario visCarHor, VistaPortada visPor, VistaGestionPersonal visGesPer, panelRegistrarPersonal panRegPers, 
 			panelListarPersonal panLisPers) {
 
-		this.visCarHor=visCarHor;
+		this.visCarHor = visCarHor;
 		this.panLisPers = panLisPers;
 		this.visPor = visPor;
 		this.visGesPer = visGesPer;
 		this.panRegPers = panRegPers;
-		this.regCaleAca=regCaleAca;
-		this.visRegAsis=visRegAsis;
+		this.regCaleAca = regCaleAca;
+		this.visRegAsis = visRegAsis;
+		this.visGesAsis = visGesAsis;
+		this.panLisAsis = panLisAsis;
+		this.visLog = visLog;
+		this.visJus = visJus;
 
 		addEventVistaPortada();
 		
@@ -42,6 +53,47 @@ public class ControladorPrincipal {
 		
 		addEventVisRegiCaleAcade();
 		addEventVistaRegiAsistencia();
+		
+		addEventVistaGestionASistencia();
+		addPanelVistaGestionAsistenci();
+		addEventPanelListarASistencia();
+		
+		addEventVistaJustifi();
+		
+		addEventLogi();
+	}
+
+	private void addEventLogi() {
+		visLog.btnIniciar.addActionListener(new ControladorVistaLogin(visLog, visPor, "btnIniciar"));
+		visLog.texPass.addKeyListener(new ControladorVistaLogin(visLog, visPor, "texPass"));
+		visLog.textUser.addKeyListener(new ControladorVistaLogin(visLog, visPor, "textUser"));
+	}
+
+	private void addEventVistaJustifi() {
+		visJus.btmAtras.addMouseListener(new ControladorVistaJustificacion(regCaleAca, panLisAsis, visJus, "btmAtras"));
+		visJus.btmGuardar.addMouseListener(new ControladorVistaJustificacion(regCaleAca, panLisAsis, visJus, "btmGuardar"));
+		visJus.textHoraJust.addKeyListener(new ControladorVistaJustificacion(regCaleAca, panLisAsis, visJus, "textHoraJust"));
+
+	}
+
+	private void addEventPanelListarASistencia() {
+		panLisAsis.btmExportar.addMouseListener(new ControladorPanelListarAsistencia(panLisPers, visJus, regCaleAca, visGesAsis, panLisAsis, "btmExportar"));
+		panLisAsis.comboTipoPers.addActionListener(new ControladorPanelListarAsistencia(panLisPers, visJus, regCaleAca, visGesAsis, panLisAsis, "comboTipoPers"));
+		panLisAsis.textFech.getJDateInstantPanel().addActionListener(new ControladorPanelListarAsistencia(panLisPers, visJus, regCaleAca, visGesAsis, panLisAsis, "textFech"));
+		panLisAsis.btnJustInas.addActionListener(new ControladorPanelListarAsistencia(panLisPers, visJus, regCaleAca, visGesAsis, panLisAsis, "btnJustInas"));
+		panLisAsis.btnVerJustificacin.addActionListener(new ControladorPanelListarAsistencia(panLisPers, visJus, regCaleAca, visGesAsis, panLisAsis, "btnVerJustificacin"));
+	}
+
+	private void addPanelVistaGestionAsistenci() {
+		panLisAsis.setBounds(0, 46, 905, 469);
+		panLisAsis.setVisible(true);
+		visGesAsis.contentPanel.add(panLisAsis);
+	}
+
+	private void addEventVistaGestionASistencia() {
+		visGesAsis.menLisAsis.addMouseListener(new ControladorVistaGestionAsistencia(visGesAsis, "menLisAsis"));
+		visGesAsis.menLisSanc.addMouseListener(new ControladorVistaGestionAsistencia(visGesAsis, "menLisSanc") );
+		visGesAsis.menListarAsisIndib.addMouseListener(new ControladorVistaGestionAsistencia(visGesAsis, "menListarAsisIndib"));
 	}
 
 	private void addEventVistaRegiAsistencia() {
@@ -49,6 +101,7 @@ public class ControladorPrincipal {
 		visRegAsis.btnModifiCale.addActionListener(new ControladorVistaRegisAsistencia(visRegAsis, regCaleAca, "btnModifiCale"));
 		visRegAsis.btmGuardar.addMouseListener(new ControladorVistaRegisAsistencia(visRegAsis, regCaleAca, "btmGuardar"));
 		visRegAsis.btmAtras.addMouseListener(new ControladorVistaRegisAsistencia(visRegAsis, regCaleAca, "btmAtras"));
+		visRegAsis.texCedu.addKeyListener(new ControladorVistaRegisAsistencia(visRegAsis, regCaleAca, "texCedu"));
 	}
 
 	private void addEventVisRegiCaleAcade() {
@@ -100,14 +153,14 @@ public class ControladorPrincipal {
 
 	private void addEventVistaPortada() {
 		
-		visPor.menGestiPers.addMouseListener(new ControladorVistaPortada(visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "menGestiPers"));
-		visPor.menGestAsis.addMouseListener(new ControladorVistaPortada(visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "menGestAsis"));
-		visPor.menRegiAsis.addMouseListener(new ControladorVistaPortada(visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "menRegiAsis"));
-		visPor.menOpcioSiste.addMouseListener(new ControladorVistaPortada(visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "menOpcioSiste"));
-		visPor.itenAdminUsuar.addMouseListener(new ControladorVistaPortada(visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "itenAdminUsuar"));
-		visPor.itenAdminMysql.addMouseListener(new ControladorVistaPortada(visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "itenAdminMysql"));
-		visPor.itenSalir.addMouseListener(new ControladorVistaPortada(visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "itenSalir"));
-		visPor.panel.addMouseListener(new ControladorVistaPortada(visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "panel"));
+		visPor.menGestiPers.addMouseListener(new ControladorVistaPortada(panLisAsis, visGesAsis, visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "menGestiPers"));
+		visPor.menGestAsis.addMouseListener(new ControladorVistaPortada(panLisAsis, visGesAsis, visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "menGestAsis"));
+		visPor.menRegiAsis.addMouseListener(new ControladorVistaPortada(panLisAsis, visGesAsis, visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "menRegiAsis"));
+		visPor.menOpcioSiste.addMouseListener(new ControladorVistaPortada(panLisAsis, visGesAsis, visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "menOpcioSiste"));
+		visPor.itenAdminUsuar.addMouseListener(new ControladorVistaPortada(panLisAsis, visGesAsis, visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "itenAdminUsuar"));
+		visPor.itenAdminMysql.addMouseListener(new ControladorVistaPortada(panLisAsis, visGesAsis, visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "itenAdminMysql"));
+		visPor.itenSalir.addMouseListener(new ControladorVistaPortada(panLisAsis, visGesAsis, visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "itenSalir"));
+		visPor.panel.addMouseListener(new ControladorVistaPortada(panLisAsis, visGesAsis, visRegAsis, regCaleAca, visPor, visGesPer, panLisPers, panRegPers, "panel"));
 	}
 	
 	private void addEventVistaGestionPersonal(){

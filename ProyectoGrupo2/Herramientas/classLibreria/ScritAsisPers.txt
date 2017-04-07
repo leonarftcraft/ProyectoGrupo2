@@ -1,0 +1,28 @@
+create table diasLabo (id int not null auto_increment primary key, decr varchar(20) not null) engine=innodb;
+create table caleAcad (id int not null auto_increment primary key, FechInic date not null, FechFin date not null) engine=innodb;
+create table tipoPers(id int not null auto_increment primary key, decr varchar(20) not null) engine=innodb;
+create table horaLabo(id int not null auto_increment primary key, decr varchar(20) not null) engine=innodb;
+create table inteHora(id int not null auto_increment primary key, decr varchar(20) not null) engine=innodb;
+create table horaJust(id int not null auto_increment primary key, cantHora varchar(5) not null, just varchar(150) not null) engine=innodb;
+create table pers( id int not null auto_increment primary key, nomb varchar(50) not null, sexo enum (' ', 'Masculino', 'Femenino') not null, apel varchar(50) not null, cedu varchar(20) not null, tele varchar(20) not null, stat enum ('Activo', 'Inactivo') not null, fechNaci date not null, fk_tipoPers int not null) engine=innodb;
+alter table pers add foreign key(fk_tipoPers) references tipoPers(id) on delete cascade on update cascade;
+create table logi( id int not null auto_increment primary key, pass varchar(20) not null, user varchar(20) not null, privi varchar(20) not null) engine=innodb;
+create table asisPers(id int not null auto_increment primary key, fech date not null, horaSali varchar(10) not null, horaEntr varchar(10) not null, horaPerd int(3) not null, fk_pers int not null, fk_caleAcad int not null, fk_horaJust int not null) engine=innodb;
+alter table asisPers add foreign key(fk_pers) references pers(id) on delete cascade on update cascade;
+alter table asisPers add foreign key(fk_horaJust) references horaJust(id) on delete cascade on update cascade;
+alter table asisPers add foreign key(fk_caleAcad) references caleAcad(id) on delete cascade on update cascade;
+create table jornLabo(id int not null auto_increment primary key, fk_pers int not null, fk_inteHora int not null) engine=innodb;
+alter table jornLabo add foreign key(fk_pers) references pers(id) on delete cascade on update cascade;
+alter table jornLabo add foreign key(fk_inteHora) references inteHora(id) on delete cascade on update cascade;
+create table cargHora(id int not null auto_increment primary key, fk_diasLabo int not null, fk_horaLabo int not null, fk_pers int not null) engine=innodb;
+alter table cargHora add foreign key(fk_pers) references pers(id) on delete cascade on update cascade;
+alter table cargHora add foreign key(fk_diasLabo) references diasLabo(id) on delete cascade on update cascade;
+alter table cargHora add foreign key(fk_horaLabo) references horaLabo(id) on delete cascade on update cascade;
+insert into tipoPers (decr) values ('Docente'), ('Administrativo'), ('Operativo');
+insert into diasLabo (decr) values ('Lunes'), ('Martes'), ('Miercoles'), ('Jueves'), ('Viernes');
+insert into horaLabo (decr) values ('07:00-07:45'), ('07:45-08:30'), ('08:40-09:25'), ('09:25-10:10'), ('10:15-11:00'), ('11:00-11:45'), ('11:45-12:30'), ('13:00-13:45'), ('13:45-14:30'), ('14:40-15:25'), ('15:25-16:10'), ('16:15-17:00'), ('17:00-17:45');
+insert into inteHora (decr) values ('07:00-13:00'), ('13:00-18:00'), ('07:00-15:00'), ('08:00-16:00'), ('09:00-17:00'), ('10:00-18:00');
+insert into horaJust (cantHora, just) values ('0', ' ');
+insert into logi (pass, user, privi) values ('ADMIN', 'ADMIN', 'ADMINISTRADOR');
+
+

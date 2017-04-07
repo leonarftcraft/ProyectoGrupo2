@@ -12,7 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import Animacion.Animacion;
 import Modelo.CalendarioAcademico;
 import Modelo.ClaseConection;
+import Modelo.ListadosAsistencia;
 import Modelo.Personal;
+import Vista.PanelListarAsistencia;
+import Vista.VistaGestionAsistencia;
 import Vista.VistaGestionPersonal;
 import Vista.VistaPortada;
 import Vista.VistaRegistrarAsistencia;
@@ -27,9 +30,11 @@ public class ControladorVistaPortada implements MouseListener{
 	private panelRegistrarPersonal panRegPers;
 	private VistaRegistrarAsistencia visRegAsis;
 	private VistaRegistrarCalendarioAcademico regCaleAca;
+	private VistaGestionAsistencia visGesAsis;
+	private PanelListarAsistencia panLisAsis;
 	private String est;
 
-	public ControladorVistaPortada(VistaRegistrarAsistencia visRegAsis, VistaRegistrarCalendarioAcademico regCaleAca, VistaPortada visPor, VistaGestionPersonal visGesPer, panelListarPersonal panLisPers, 
+	public ControladorVistaPortada(PanelListarAsistencia panLisAsis, VistaGestionAsistencia visGesAsis, VistaRegistrarAsistencia visRegAsis, VistaRegistrarCalendarioAcademico regCaleAca, VistaPortada visPor, VistaGestionPersonal visGesPer, panelListarPersonal panLisPers, 
 			panelRegistrarPersonal panRegPers, String est) {
 		this.est = est;
 		this.panLisPers = panLisPers;
@@ -38,6 +43,8 @@ public class ControladorVistaPortada implements MouseListener{
 		this.visGesPer = visGesPer;
 		this.regCaleAca=regCaleAca;
 		this.visRegAsis=visRegAsis;
+		this.visGesAsis=visGesAsis;
+		this.panLisAsis=panLisAsis;
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -257,6 +264,18 @@ public class ControladorVistaPortada implements MouseListener{
 			}
 			
 			
+			
+		}
+		if(est.equals("menGestAsis")){
+		ListadosAsistencia liA = new ListadosAsistencia(regCaleAca, null);
+			DefaultTableModel modelo=(DefaultTableModel) panLisAsis.table.getModel();
+			int filasTabla = panLisAsis.table.getRowCount();
+			String conSql="where pers.fk_tipoPers='1' and asispers.fech='"+liA.getFechaActual()+"'";
+			liA.ListarAsistencia(modelo, filasTabla, conSql, liA.getFechaActual());
+			panLisAsis.textFech.getJFormattedTextField().setText(liA.getFechaActual());
+			panLisAsis.comboTipoPers.setSelectedIndex(0);
+			panLisAsis.setVisible(true);
+			visGesAsis.setVisible(true);
 			
 		}
 		

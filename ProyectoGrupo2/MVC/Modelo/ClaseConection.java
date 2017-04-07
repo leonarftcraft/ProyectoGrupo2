@@ -9,6 +9,8 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import Vista.VistaCrearBD;
+
 public class ClaseConection {
 
 	// objeto vacio de la clase de java Connection
@@ -23,10 +25,21 @@ public class ClaseConection {
 			Cone = DriverManager.getConnection("jdbc:mysql://localhost:3306/asispers", "root", Pass);
 
 		} catch (ClassNotFoundException ex) {
+			
+			
+
 			// en el caso de error se mostrara esto
 			System.out.println("error de drivers");
 		} catch (SQLException ex) {
-
+			try {
+				Runtime.getRuntime().exec("mysql -u root -p1323027 -e "+"\"create database asisPers"+"\"");
+				VistaCrearBD a = new VistaCrearBD();
+				a.setVisible(true);
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}

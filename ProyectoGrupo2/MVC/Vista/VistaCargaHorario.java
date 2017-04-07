@@ -24,6 +24,7 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Dialog.ModalityType;
+import java.awt.Toolkit;
 
 public class VistaCargaHorario extends JDialog {
 
@@ -49,6 +50,7 @@ public class VistaCargaHorario extends JDialog {
 	 * Create the dialog.
 	 */
 	public VistaCargaHorario() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VistaCargaHorario.class.getResource("/Dise\u00F1oGeneral/Asispro.fw.png")));
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 828, 438);
 		getContentPane().setLayout(new BorderLayout());

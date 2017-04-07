@@ -193,7 +193,26 @@ public class ControladorVistaRegisAsistencia implements ActionListener, MouseLis
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		char key = e.getKeyChar();
+		
+		if(est.equals("texCedu")){
+			
+			String tex = visRegAsis.texCedu.getText();
+		
+			if(tex.length()<=15){
+				
+				if((key < '0' || key > '9')){
+					
+					e.consume();
+					
+				}
+				
+				
+			}else{
+				e.consume();
+			}
+		
+		}
 		
 	}
 

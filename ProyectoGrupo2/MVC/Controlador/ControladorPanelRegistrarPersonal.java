@@ -92,81 +92,74 @@ public class ControladorPanelRegistrarPersonal implements MouseListener, KeyList
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		if(ets.equals("btmGuardar")){		
+		if (ets.equals("btmGuardar")) {
 
-			
-		if(!panRegPers.textApellido.equals("")&&!panRegPers.textNombre.equals("")&&!panRegPers.textCedula.equals("")
-					&&!panRegPers.textTelef.equals("")&&panRegPers.comCargo.getSelectedIndex()!=0 && panRegPers.comSexo.getSelectedIndex()!=0){
-				
-					DefaultTableModel horario=(DefaultTableModel) visCarHor.table.getModel();
-				
-				
-				
-					CargaHoraria carRe = new CargaHoraria(panRegPers);
-					Personal pers = new Personal(panRegPers);
-					JornadaLaboral jona = new JornadaLaboral(panRegPers);
-					Asistencia asi = new Asistencia(regCaleAca, null);
-					
-				
-					
-					int con=0;
-					for(int a=0; a<=12; a++){
-						
-						
-						for(int b=1; b<=5; b++){
-							
-							
-							if((Boolean)horario.getValueAt(a, b)){
-								
-								con++;								
-							}
-							
-							
+			if (!panRegPers.textApellido.equals("") && !panRegPers.textNombre.equals("")
+					&& !panRegPers.textCedula.equals("") && !panRegPers.textTelef.equals("")
+					&& panRegPers.comCargo.getSelectedIndex() != 0 && panRegPers.comSexo.getSelectedIndex() != 0) {
+
+				DefaultTableModel horario = (DefaultTableModel) visCarHor.table.getModel();
+
+				CargaHoraria carRe = new CargaHoraria(panRegPers);
+				Personal pers = new Personal(panRegPers);
+				JornadaLaboral jona = new JornadaLaboral(panRegPers);
+				Asistencia asi = new Asistencia(regCaleAca, null);
+
+				int con = 0;
+				for (int a = 0; a <= 12; a++) {
+
+					for (int b = 1; b <= 5; b++) {
+
+						if ((Boolean) horario.getValueAt(a, b)) {
+
+							con++;
 						}
-						
+
 					}
-					
-					
-					
-						if(panRegPers.comCargo.getSelectedIndex()==1){
-							if(con>=6){
-								
-								pers.Registrar();
-								carRe.Registrar(horario);
-								asi.setRegistroIndivi(panRegPers.textCedula.getText());
-								carRe.Limpiar(horario);
-								pers.Limpiar();
-								JOptionPane.showMessageDialog(null,	"Datos almacenados exitosamente",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
 
-							}else{
-								JOptionPane.showMessageDialog(null,	"Introduzca carga horaria",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
-								
-							}
-							
-						}else{
-							
-							if(panRegPers.comJornaLabo.getSelectedIndex()!=0){
-								pers.Registrar();
-								jona.Registrar();
-								asi.setRegistroIndivi(panRegPers.textCedula.getText());
-								jona.Limpiar();
-								pers.Limpiar();
-								JOptionPane.showMessageDialog(null,	"Datos almacenados exitosamente",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
+				}
 
-							}else{
-								JOptionPane.showMessageDialog(null,	"Seleccione jornada laboral",  "Mensaje Informativo", JOptionPane.INFORMATION_MESSAGE);
+				if (panRegPers.comCargo.getSelectedIndex() == 1) {
+					if (con >= 6) {
 
-							}
-							
-						}		
-				
-				
-			}else{
-				JOptionPane.showMessageDialog(null, "Los campos que tienen asterisco rojo son obligatorios", "Mensaje del sistema", JOptionPane.WARNING_MESSAGE); 
+						pers.Registrar();
+						carRe.Registrar(horario);
+						asi.setRegistroIndivi(panRegPers.textCedula.getText());
+						carRe.Limpiar(horario);
+						pers.Limpiar();
+						JOptionPane.showMessageDialog(null, "Datos almacenados exitosamente", "Mensaje Informativo",
+								JOptionPane.INFORMATION_MESSAGE);
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Introduzca carga horaria", "Mensaje Informativo",
+								JOptionPane.INFORMATION_MESSAGE);
+
+					}
+
+				} else {
+
+					if (panRegPers.comJornaLabo.getSelectedIndex() != 0) {
+						pers.Registrar();
+						jona.Registrar();
+						asi.setRegistroIndivi(panRegPers.textCedula.getText());
+						jona.Limpiar();
+						pers.Limpiar();
+						JOptionPane.showMessageDialog(null, "Datos almacenados exitosamente", "Mensaje Informativo",
+								JOptionPane.INFORMATION_MESSAGE);
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Seleccione jornada laboral", "Mensaje Informativo",
+								JOptionPane.INFORMATION_MESSAGE);
+
+					}
+
+				}
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Los campos que tienen asterisco rojo son obligatorios",
+						"Mensaje del sistema", JOptionPane.WARNING_MESSAGE);
 			}
-			
-			
-			
+
 		}
 		
 		if(ets.equals("btmAtras")){

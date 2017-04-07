@@ -20,10 +20,11 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Dialog.ModalityType;
+import java.awt.Toolkit;
 
 public class VistaRegistrarCalendarioAcademico extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	private JPanel contentPanel = new JPanel();
 	public JDatePickerImpl textFechInci;
 	public JDatePickerImpl textFechFin;
 	public JLabel btmAtras;
@@ -35,6 +36,7 @@ public class VistaRegistrarCalendarioAcademico extends JDialog {
 	 * Create the dialog.
 	 */
 	public VistaRegistrarCalendarioAcademico() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VistaRegistrarCalendarioAcademico.class.getResource("/Dise\u00F1oGeneral/Asispro.fw.png")));
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 465, 309);
 		getContentPane().setLayout(new BorderLayout());

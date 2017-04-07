@@ -55,6 +55,7 @@ public class VistaPortada extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaPortada() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VistaPortada.class.getResource("/Dise\u00F1oGeneral/Asispro.fw.png")));
 		setExtendedState(this.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1086, 499);
@@ -63,9 +64,6 @@ public class VistaPortada extends JFrame {
 		contentPane.add(panel);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		panel.setLayout(null);
-		
-		panelEscudo.setBounds(785, 93, 214, 188);
-		panel.add(panelEscudo);
 		panelMenu = new JPanel();
 		panelMenu.setBounds(0, 166, pantalla.width, 48);
 		panelMenu.setBackground(Color.CYAN);
@@ -180,17 +178,6 @@ public class VistaPortada extends JFrame {
 	};
 	
 	public JPanelRound menDes = new JPanelRound(){
-		protected void paintComponent(Graphics g) {
-			Graphics2D g2 = (Graphics2D) g;
-			g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-			RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-			AlphaComposite old = (AlphaComposite) g2.getComposite();
-			g2.setComposite(AlphaComposite.SrcOver.derive( 0.5f));
-			super.paintComponent(g);
-			g2.setComposite(old);
-			}
-	};
-	private JPanelRound panelEscudo = new JPanelRound(){
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,

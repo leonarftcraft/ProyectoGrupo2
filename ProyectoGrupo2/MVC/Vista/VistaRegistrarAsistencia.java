@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
 import java.awt.Dialog.ModalityType;
+import java.awt.Toolkit;
 
 public class VistaRegistrarAsistencia extends JDialog {
 
@@ -41,6 +42,7 @@ public class VistaRegistrarAsistencia extends JDialog {
 	 * Create the dialog.
 	 */
 	public VistaRegistrarAsistencia() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VistaRegistrarAsistencia.class.getResource("/Dise\u00F1oGeneral/Asispro.fw.png")));
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 823, 461);
 		getContentPane().setLayout(new BorderLayout());
