@@ -1,3 +1,4 @@
+create table carru (id int not null auto_increment primary key, imag MEDIUMBLOB not null) engine=innodb;
 create table diasLabo (id int not null auto_increment primary key, decr varchar(20) not null) engine=innodb;
 create table caleAcad (id int not null auto_increment primary key, FechInic date not null, FechFin date not null) engine=innodb;
 create table tipoPers(id int not null auto_increment primary key, decr varchar(20) not null) engine=innodb;

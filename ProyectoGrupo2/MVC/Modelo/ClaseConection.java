@@ -17,7 +17,7 @@ public class ClaseConection {
 	private Connection Cone;
 
 	// metodo encargado de generar la conexion con mysql
-	public void GetConexion(String Pass) {
+	public Connection GetConexion(String Pass) {
 
 		try {
 			// driver mysql
@@ -41,6 +41,7 @@ public class ClaseConection {
 				e.printStackTrace();
 			}
 		}
+		return Cone;
 
 	}
 
